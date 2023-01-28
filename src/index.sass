@@ -1,3 +1,5 @@
+@import './sass/_variables'
+
 *
   padding: 0
   margin: 0
@@ -9,8 +11,9 @@ html, body
   font-size: 100%
   line-height: 130%
 
-nav, header, aside
+nav, header, aside, main, #root
   display: block
+  height: 100%
 
 li
   list-style: none
@@ -21,12 +24,6 @@ a
 input,button
   font-family: inherit
 
-$font-stack: Roboto, sans-serif
-$primary-color: #FFFFFF
-$secondary-color: #A1A1AA
-$primary-background-color: #202124
-$secondary-background-color: #27272A
-$border-color: #414144
 
 body
   font: $font-stack
