@@ -1,23 +1,25 @@
 @import '../../sass/_variables'
 
 .navigation
+  display: flex
+  height: 100%
   grid-area: navigation
   background-color: $secondary-background-color
-  display: flex
-  align-items: center
   .navigationImg
     margin-left: 20px
   .navigationSpan
     margin-left: 28px
-    width: auto
+  li
+    display: flex
     position: relative
-  .active
-    &::before
-      content: ""
-      position: absolute
-      left: 1px
-      bottom: -13px
-      width: -webkit-fill-available
-      height: 2px
-      background: $primary-color
-
+    align-items: center
+    cursor: pointer
+    &:hover
+      &::before
+        content: ""
+        position: absolute
+        left: -3px
+        bottom: 0
+        width: calc(100% + 6px)
+        height: 2px
+        background: $primary-color
