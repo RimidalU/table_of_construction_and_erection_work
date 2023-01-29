@@ -21,17 +21,17 @@ export const mockData: MockData[] = [
     "child": [
       null
     ],
-    "equipmentCosts": 0,
-    "estimatedProfit": 0,
+    "equipmentCosts": 1750,
+    "estimatedProfit": 1209122.5,
     "id": 1,
     "machineOperatorSalary": 0,
     "mainCosts": 0,
     "materials": 0,
     "mimExploitation": 0,
     "overheads": 0,
-    "rowName": "string",
-    "salary": 0,
-    "supportCosts": 0,
+    "rowName": "Южная строительная площадка",
+    "salary": 20348,
+    "supportCosts": 108.07,
     "total": 0
   },
   {
@@ -46,7 +46,7 @@ export const mockData: MockData[] = [
     "materials": 10,
     "mimExploitation": 10,
     "overheads": 10,
-    "rowName": "string 10",
+    "rowName": "Фундаментальные работы",
     "salary": 10,
     "supportCosts": 10,
     "total": 10

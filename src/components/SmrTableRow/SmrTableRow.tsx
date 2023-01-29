@@ -1,11 +1,12 @@
 import React from 'react'
 import { MockData } from '../../data/mockData'
+import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
 
 interface rowProps {
-  row: MockData,
+	row: MockData
 }
 
-export default function SmrTableRow({row}: rowProps) {
+export default function SmrTableRow({ row }: rowProps) {
 	const {
 		equipmentCosts,
 		estimatedProfit,
@@ -23,9 +24,11 @@ export default function SmrTableRow({row}: rowProps) {
 
 	return (
 		<tr className='smrTableRow'>
-			<td>Level</td>
+			<td>
+				<LevelButtonsSet />
+			</td>
 			<td>{rowName}</td>
-			<td>{mainCosts}</td>
+			<td>{salary}</td>
 			<td>{equipmentCosts}</td>
 			<td>{supportCosts}</td>
 			<td>{estimatedProfit}</td>
