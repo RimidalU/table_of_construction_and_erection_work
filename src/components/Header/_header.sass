@@ -2,4 +2,10 @@
 
 .header
   grid-area: header
-  background-color: $secondary-background-color
+
+  display: grid
+  grid-template-rows: 44px 1fr
+  grid-template-columns: 234px 1fr
+  grid-template-areas: 'navigation navigation' 'projectSelector projectDocType'
+  height: 100%
+  gap: 1px
