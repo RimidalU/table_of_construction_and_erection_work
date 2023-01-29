@@ -1,0 +1,29 @@
+@import '../../sass/_variables'
+
+table, caption, tbody, tfoot, thead, tr, th, td
+  margin: 0
+  padding: 0
+  border: 0
+  font-size: 100%
+  font: inherit
+  vertical-align: baseline
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+  width: 100%
+
+tr
+  border-bottom: 1px solid $border-color
+
+th
+  text-align: left
+  padding: 12px
+  color: $secondary-color
+  &:nth-child(2)
+    width: 100%
+  &:nth-child(n+3)
+    min-width: 176px
+
+td
+  padding: 21px 12px
