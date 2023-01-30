@@ -42,6 +42,7 @@ export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsPro
 									removeRow={removeRow}
 									addRow={addRow}
 									updateRow={updateRow}
+									setEditContactId={setEditContactId}
 								/>
 							)}
 						</React.Fragment>

@@ -15,3 +15,12 @@
     font-family: inherit
     font-size: inherit
     line-height: inherit
+/* hide arrows from input number */
+/* Works for Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
+/* Works for Firefox */
+    &[type="number"]
+      -moz-appearance: textfield

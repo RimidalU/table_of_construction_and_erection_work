@@ -1,7 +1,5 @@
 export interface MockData {
-  child: [
-    number | null
-  ],
+  child: number[],
   equipmentCosts: number
   estimatedProfit: number
   id: number
@@ -19,7 +17,6 @@ export interface MockData {
 export const mockData: MockData[] = [
   {
     "child": [
-      null
     ],
     "equipmentCosts": 1750,
     "estimatedProfit": 1209122.5,
@@ -85,11 +82,10 @@ export const newRowBlank = {
 }
 
 export const newMockRow =  {
-  "child": [
-  ],
+  "child": [0],
   "equipmentCosts": 0,
   "estimatedProfit": 0,
-  "id": 13,
+  "id": 0,
   "machineOperatorSalary": 0,
   "mainCosts": 0,
   "materials": 0,

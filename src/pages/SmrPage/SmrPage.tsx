@@ -11,13 +11,20 @@ export default function SmrPage() {
 		setRows(newRows)
 	}
 
-	const addRow = (id: number, newRow: typeof newRowBlank) => { // /v1/outlay-rows/entity/{eID}/row/create
+	const addRow = (id: number, newRow: typeof newRowBlank) => {
+		// /v1/outlay-rows/entity/{eID}/row/create
 		console.log(id, newRow)
 		// setRows(newRow)
 	}
 
 	const updateRow = (newRow: MockData) => {
-		console.log(newRow.salary)
+		const newRows = rows.map((row) => {
+			if (row.id === newRow.id) {
+				return newRow
+			}
+			return row
+		})
+		setRows(newRows)
 	}
 
 	return (
