@@ -1,29 +1,53 @@
-import React from 'react'
-import { MockData } from '../../data/mockData'
+import React, { useState } from 'react'
+import { MockData, newRowBlank } from '../../data/mockData'
+import EditableSmrTableRow from '../EditableSmrTableRow/EditableSmrTableRow'
 import SmrTableRow from '../SmrTableRow/SmrTableRow'
 
 interface RowsProps {
 	rows: MockData[]
+	removeRow: (id: number) => void
+	addRow: (id: number, newRow: typeof newRowBlank) => void
+	updateRow: (newRow: MockData) => void
 }
 
-export default function SmrTable({ rows }: RowsProps) {
+export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsProps) {
+	const [editContactId, setEditContactId] = useState<number | null>(null)
+
+	const editRow = (id: number) => {
+		setEditContactId(id)
+		updateRow(rows[0])
+	}
+
 	return (
-		<table className='smrTable'>
-			<thead>
-				<tr>
-					<th>Уровень</th>
-					<th>Наименование работ</th>
-					<th>Основная з/п</th>
-					<th>Оборудование</th>
-					<th>Накладные расходы</th>
-					<th>Сметная прибыль</th>
-				</tr>
-			</thead>
-			<tbody>
-				{rows.map((row) => (
-					<SmrTableRow row={row} key={row.id} />
-				))}
-			</tbody>
-		</table>
+		<form action=''>
+			<table className='smrTable'>
+				<thead>
+					<tr>
+						<th>Уровень</th>
+						<th>Наименование работ</th>
+						<th>Основная з/п</th>
+						<th>Оборудование</th>
+						<th>Накладные расходы</th>
+						<th>Сметная прибыль</th>
+					</tr>
+				</thead>
+				<tbody>
+					{rows.map((row) => (
+						<React.Fragment key={row.id}>
+							{editContactId !== row.id ? (
+								<SmrTableRow row={row} removeRow={removeRow} addRow={addRow} editRow={editRow} />
+							) : (
+								<EditableSmrTableRow
+									row={row}
+									removeRow={removeRow}
+									addRow={addRow}
+									updateRow={updateRow}
+								/>
+							)}
+						</React.Fragment>
+					))}
+				</tbody>
+			</table>
+		</form>
 	)
 }

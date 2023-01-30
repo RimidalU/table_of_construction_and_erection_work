@@ -6,10 +6,10 @@ interface rowProps {
 	row: MockData
 	removeRow: (id: number) => void
 	addRow: (id: number, newRow: typeof newRowBlank) => void
-	editRow: (id: number) => void
+	updateRow: (newRow: MockData) => void
 }
 
-export default function SmrTableRow({ row, removeRow, addRow, editRow }: rowProps) {
+export default function EditableSmrTableRow({ row, removeRow, addRow, updateRow }: rowProps) {
 	const {
 		equipmentCosts,
 		estimatedProfit,
@@ -26,15 +26,15 @@ export default function SmrTableRow({ row, removeRow, addRow, editRow }: rowProp
 	} = row
 
 	return (
-		<tr className='smrTableRow' onDoubleClick={() => editRow(id)}>
+		<tr className='editableSmrTableRow' onDoubleClick={() => updateRow(row)}>
 			<td>
 				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} />
 			</td>
-			<td>{rowName}</td>
-			<td>{salary}</td>
-			<td>{equipmentCosts}</td>
-			<td>{supportCosts}</td>
-			<td>{estimatedProfit}</td>
+			<td><input type='text' required placeholder={rowName}/></td>
+			<td><input type='text' placeholder={`${salary}`}/></td>
+			<td><input type='text' placeholder={`${equipmentCosts}`}/></td>
+			<td><input type='text' placeholder={`${supportCosts}`}/></td>
+			<td><input type='text' placeholder={`${estimatedProfit}`}/></td>
 		</tr>
 	)
 }
