@@ -1,9 +1,10 @@
 import React from 'react'
-import { MockData, newRowBlank } from '../../data/mockData'
+import { newRowBlank } from '../../data/mockData'
+import { RowData } from '../../interfaces/types'
 import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
 
 interface rowProps {
-	row: MockData
+	row: RowData
 	removeRow: (id: number) => void
 	addRow: (id: number, newRow: typeof newRowBlank) => void
 	editRow: (id: number) => void

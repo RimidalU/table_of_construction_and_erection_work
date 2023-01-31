@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { rowAPI } from '../../api/instance'
 import SmrTable from '../../components/SmrTable/SmrTable'
 
-import { MockData, mockData, newRowBlank } from '../../data/mockData'
+import { newRowBlank } from '../../data/mockData'
+import { RowData } from '../../interfaces/types'
 
 export default function SmrPage() {
-	const [rows, setRows] = useState(mockData)
+	const [rows, setRows] = useState<RowData[]>([])
 
-	const removeRow = (id: number) => {
+	useEffect(() => {
+		getRows()
+	}, [])
+
+	const getRows = async () =>  {
+		const newState = await rowAPI.getAll()
+		console.log(newState);
+		setRows(newState)
+	}
+
+	const removeRow = async (id: number) => {
+		await rowAPI.removeRow(id)
 		const newRows = rows.filter((row) => id !== row.id)
 		setRows(newRows)
 	}
@@ -17,7 +30,7 @@ export default function SmrPage() {
 		// setRows(newRow)
 	}
 
-	const updateRow = (newRow: MockData) => {
+	const updateRow = (newRow: RowData) => {
 		const newRows = rows.map((row) => {
 			if (row.id === newRow.id) {
 				return newRow

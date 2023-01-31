@@ -1,12 +1,14 @@
 import React, { KeyboardEvent, useEffect, useState } from 'react'
-import { MockData, newRowBlank, newMockRow } from '../../data/mockData'
+import { initialRowState } from '../../data/initialRowState'
+import { newRowBlank } from '../../data/mockData'
+import { RowData } from '../../interfaces/types'
 import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
 
 interface rowProps {
-	row: MockData
+	row: RowData
 	removeRow: (id: number) => void
 	addRow: (id: number, newRow: typeof newRowBlank) => void
-	updateRow: (newRow: MockData) => void
+	updateRow: (newRow: RowData) => void
 	setEditContactId: (id: null) => void
 }
 
@@ -17,7 +19,7 @@ export default function EditableSmrTableRow({
 	updateRow,
 	setEditContactId,
 }: rowProps) {
-	const [rowValue, setRowValue] = useState(newMockRow)
+	const [rowValue, setRowValue] = useState<RowData>(initialRowState)
 
 	useEffect(() => {
 		setRowValue(row)

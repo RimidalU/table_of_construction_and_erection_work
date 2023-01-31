@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { MockData, newRowBlank } from '../../data/mockData'
+import { newRowBlank } from '../../data/mockData'
+import { RowData } from '../../interfaces/types'
 import EditableSmrTableRow from '../EditableSmrTableRow/EditableSmrTableRow'
 import SmrTableRow from '../SmrTableRow/SmrTableRow'
 
 interface RowsProps {
-	rows: MockData[]
+	rows: RowData[]
 	removeRow: (id: number) => void
 	addRow: (id: number, newRow: typeof newRowBlank) => void
-	updateRow: (newRow: MockData) => void
+	updateRow: (newRow: RowData) => void
 }
 
 export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsProps) {
