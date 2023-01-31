@@ -31,6 +31,7 @@ export default function SmrPage() {
 	}
 
 	const updateRow = (newRow: RowData) => {
+
 		const newRows = rows.map((row) => {
 			if (row.id === newRow.id) {
 				return newRow

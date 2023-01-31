@@ -1,4 +1,5 @@
 import React, { KeyboardEvent, useEffect, useState } from 'react'
+import { rowAPI } from '../../api/instance'
 import { initialRowState } from '../../data/initialRowState'
 import { newRowBlank } from '../../data/mockData'
 import { RowData } from '../../interfaces/types'
@@ -27,8 +28,21 @@ export default function EditableSmrTableRow({
 
 	const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Enter') {
+			const updateRowData = {
+				equipmentCosts,
+				estimatedProfit,
+				machineOperatorSalary,
+				mainCosts,
+				materials,
+				mimExploitation,
+				overheads,
+				rowName,
+				salary,
+				supportCosts,
+			}
 			updateRow(rowValue)
 			setEditContactId(null)
+			rowAPI.updateRow(id, updateRowData)
 		}
 	}
 

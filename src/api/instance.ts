@@ -1,6 +1,6 @@
 import ky from 'ky'
 import { getErrorMessage } from '../helpers/getErrorMessage'
-import { RowData } from '../interfaces/types'
+import { RowData, UpdateRowData } from '../interfaces/types'
 
 const api = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL
@@ -11,7 +11,7 @@ export const rowAPI = {
     try {
       return await api.get('list').json()
     } catch (error: unknown) {
-      throw(getErrorMessage(error))
+      throw (getErrorMessage(error))
     }
   },
   // async setRow(rID, newRow) {
@@ -21,13 +21,15 @@ export const rowAPI = {
   //     console.log(getErrorMessage(error))
   //   }
   // },
-  // async updateRow(rID, newRow) {
-  //   try {
-  //     return await api.put(`${rID}/update`, { json: newRow }).json()
-  //   } catch (error: unknown) {
-  //     console.log(getErrorMessage(error))
-  //   }
-  // },
+  async updateRow(rID: number, newRow: UpdateRowData) {
+    try {
+      return await api.post(`${rID}/update`, {
+        json: newRow
+      }).json()
+    } catch (error: unknown) {
+      console.log(getErrorMessage(error))
+    }
+  },
   async removeRow(rID: number) {
     try {
       return await api.delete(`${rID}/delete`).json()
