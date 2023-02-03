@@ -12,9 +12,8 @@ export default function SmrPage() {
 		getRows()
 	}, [])
 
-	const getRows = async () =>  {
+	const getRows = async () => {
 		const newState = await rowAPI.getAll()
-		console.log(newState);
 		setRows(newState)
 	}
 
@@ -30,8 +29,20 @@ export default function SmrPage() {
 		// setRows(newRow)
 	}
 
-	const updateRow = (newRow: RowData) => {
-
+	const updateRow = async (newRow: RowData) => {
+		const updateRowData = {
+			equipmentCosts: newRow.equipmentCosts,
+			estimatedProfit: newRow.estimatedProfit,
+			machineOperatorSalary: newRow.machineOperatorSalary,
+			mainCosts: newRow.mainCosts,
+			materials: newRow.materials,
+			mimExploitation: newRow.mimExploitation,
+			overheads: newRow.overheads,
+			rowName: newRow.rowName,
+			salary: newRow.salary,
+			supportCosts: newRow.supportCosts,
+		}
+		await rowAPI.updateRow(newRow.id, updateRowData)
 		const newRows = rows.map((row) => {
 			if (row.id === newRow.id) {
 				return newRow

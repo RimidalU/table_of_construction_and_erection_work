@@ -7,6 +7,7 @@ import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
 
 interface rowProps {
 	row: RowData
+	level: number
 	removeRow: (id: number) => void
 	addRow: (id: number, newRow: typeof newRowBlank) => void
 	updateRow: (newRow: RowData) => void
@@ -15,6 +16,7 @@ interface rowProps {
 
 export default function EditableSmrTableRow({
 	row,
+	level,
 	removeRow,
 	addRow,
 	updateRow,
@@ -28,21 +30,8 @@ export default function EditableSmrTableRow({
 
 	const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Enter') {
-			const updateRowData = {
-				equipmentCosts,
-				estimatedProfit,
-				machineOperatorSalary,
-				mainCosts,
-				materials,
-				mimExploitation,
-				overheads,
-				rowName,
-				salary,
-				supportCosts,
-			}
 			updateRow(rowValue)
 			setEditContactId(null)
-			rowAPI.updateRow(id, updateRowData)
 		}
 	}
 
@@ -64,7 +53,7 @@ export default function EditableSmrTableRow({
 	return (
 		<tr className='editableSmrTableRow' onDoubleClick={() => updateRow(row)}>
 			<td>
-				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} />
+				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} level={level} />
 			</td>
 			<td>
 				<input

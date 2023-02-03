@@ -14,6 +14,46 @@ interface RowsProps {
 export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsProps) {
 	const [editContactId, setEditContactId] = useState<number | null>(null)
 
+	let markup: JSX.Element[] = []
+
+	const parsRows = (rows: RowData[], level: number = -1) => {
+		level += 1
+		rows.map((row) => {
+			if (row.child.length) {
+				markup.push(getRow(row, level))
+				parsRows(row.child, level)
+			} else {
+				markup.push(getRow(row, level))
+			}
+		})
+		return markup
+	}
+
+	const getRow = (row: RowData, level: number): JSX.Element => {
+		return (
+			<React.Fragment key={row.id}>
+				{editContactId !== row.id ? (
+					<SmrTableRow
+						row={row}
+						removeRow={removeRow}
+						addRow={addRow}
+						editRow={editRow}
+						level={level}
+					/>
+				) : (
+					<EditableSmrTableRow
+						row={row}
+						removeRow={removeRow}
+						addRow={addRow}
+						updateRow={updateRow}
+						setEditContactId={setEditContactId}
+						level={level}
+					/>
+				)}
+			</React.Fragment>
+		)
+	}
+
 	const editRow = (id: number) => {
 		setEditContactId(id)
 		updateRow(rows[0])
@@ -32,23 +72,7 @@ export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsPro
 						<th>Сметная прибыль</th>
 					</tr>
 				</thead>
-				<tbody>
-					{rows.map((row) => (
-						<React.Fragment key={row.id}>
-							{editContactId !== row.id ? (
-								<SmrTableRow row={row} removeRow={removeRow} addRow={addRow} editRow={editRow} />
-							) : (
-								<EditableSmrTableRow
-									row={row}
-									removeRow={removeRow}
-									addRow={addRow}
-									updateRow={updateRow}
-									setEditContactId={setEditContactId}
-								/>
-							)}
-						</React.Fragment>
-					))}
-				</tbody>
+				<tbody>{parsRows(rows)}</tbody>
 			</table>
 		</form>
 	)

@@ -6,14 +6,18 @@ import { newRowBlank } from '../../data/mockData'
 
 interface ButtonSetProps {
 	id: number
+	level: number
 	removeRow: (id: number) => void
-	addRow: (id: number, newRow: typeof newRowBlank) => void}
+	addRow: (id: number, newRow: typeof newRowBlank) => void
+}
 
-export default function LevelButtonsSet({ id, removeRow, addRow }: ButtonSetProps) {
+export default function LevelButtonsSet({ id, removeRow, addRow, level }: ButtonSetProps) {
 	const [isShown, setIsShown] = useState(false)
+	const shiftSet = level * 20
 
 	return (
 		<div
+			style={{marginLeft: `${shiftSet}px`}}
 			className='levelButtonsSet'
 			onMouseEnter={() => setIsShown(true)}
 			onMouseLeave={() => setIsShown(false)}

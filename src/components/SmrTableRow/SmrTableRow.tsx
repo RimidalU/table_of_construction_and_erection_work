@@ -5,12 +5,13 @@ import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
 
 interface rowProps {
 	row: RowData
+	level: number
 	removeRow: (id: number) => void
 	addRow: (id: number, newRow: typeof newRowBlank) => void
 	editRow: (id: number) => void
 }
 
-export default function SmrTableRow({ row, removeRow, addRow, editRow }: rowProps) {
+export default function SmrTableRow({ row, removeRow, addRow, editRow, level }: rowProps) {
 	const {
 		equipmentCosts,
 		estimatedProfit,
@@ -29,7 +30,7 @@ export default function SmrTableRow({ row, removeRow, addRow, editRow }: rowProp
 	return (
 		<tr className='smrTableRow' onDoubleClick={() => editRow(id)}>
 			<td>
-				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} />
+				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} level={level} />
 			</td>
 			<td>{rowName}</td>
 			<td>{salary}</td>
