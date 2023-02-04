@@ -3,6 +3,9 @@ import { rowAPI } from '../../api/instance'
 import SmrTable from '../../components/SmrTable/SmrTable'
 
 import { newRowBlank } from '../../data/mockData'
+import { getUpdateRowData } from '../../helpers/getUpdateRowData'
+import { recursiveFilter } from '../../helpers/recursiveFilter'
+import { recursiveMap } from '../../helpers/recursiveMap'
 import { RowData } from '../../interfaces/types'
 
 export default function SmrPage() {
@@ -19,7 +22,7 @@ export default function SmrPage() {
 
 	const removeRow = async (id: number) => {
 		await rowAPI.removeRow(id)
-		const newRows = rows.filter((row) => id !== row.id)
+		const newRows = recursiveFilter(rows, id)
 		setRows(newRows)
 	}
 
@@ -30,25 +33,8 @@ export default function SmrPage() {
 	}
 
 	const updateRow = async (newRow: RowData) => {
-		const updateRowData = {
-			equipmentCosts: newRow.equipmentCosts,
-			estimatedProfit: newRow.estimatedProfit,
-			machineOperatorSalary: newRow.machineOperatorSalary,
-			mainCosts: newRow.mainCosts,
-			materials: newRow.materials,
-			mimExploitation: newRow.mimExploitation,
-			overheads: newRow.overheads,
-			rowName: newRow.rowName,
-			salary: newRow.salary,
-			supportCosts: newRow.supportCosts,
-		}
-		await rowAPI.updateRow(newRow.id, updateRowData)
-		const newRows = rows.map((row) => {
-			if (row.id === newRow.id) {
-				return newRow
-			}
-			return row
-		})
+		await rowAPI.updateRow(newRow.id, getUpdateRowData(newRow))
+		const newRows = recursiveMap(rows, newRow.id, newRow)
 		setRows(newRows)
 	}
 
