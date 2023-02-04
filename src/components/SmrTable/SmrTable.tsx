@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { newRowBlank } from '../../data/mockData'
-import { RowData } from '../../interfaces/types'
+import { NewRowData, RowData } from '../../interfaces/types'
 import EditableSmrTableRow from '../EditableSmrTableRow/EditableSmrTableRow'
 import SmrTableRow from '../SmrTableRow/SmrTableRow'
 
 interface RowsProps {
 	rows: RowData[]
 	removeRow: (id: number) => void
-	addRow: (id: number, newRow: typeof newRowBlank) => void
+	addRow: (newRow: NewRowData) => void
 	updateRow: (newRow: RowData) => void
 }
 

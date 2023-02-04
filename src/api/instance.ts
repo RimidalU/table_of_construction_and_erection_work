@@ -1,12 +1,13 @@
 import ky from 'ky'
 import { getErrorMessage } from '../helpers/getErrorMessage'
-import { RowData, UpdateRowData } from '../interfaces/types'
+import { NewRowData, Response, RowData, UpdateRowData } from '../interfaces/types'
 
 const api = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL
 })
 
 export const rowAPI = {
+
   async getAll(): Promise<RowData[]> {
     try {
       return await api.get('list').json()
@@ -14,27 +15,30 @@ export const rowAPI = {
       throw (getErrorMessage(error))
     }
   },
-  // async setRow(rID, newRow) {
-  //   try {
-  //     return await api.post(`${rID}/create`, { json: newRow }).json()
-  //   } catch (error: unknown) {
-  //     console.log(getErrorMessage(error))
-  //   }
-  // },
-  async updateRow(rID: number, newRow: UpdateRowData) {
+
+  async createRow(newRow: NewRowData): Promise<Response> {
+    try {
+      return await api.post(`create`, { json: newRow }).json()
+    } catch (error: unknown) {
+      throw (getErrorMessage(error))
+    }
+  },
+
+  async updateRow(rID: number, newRow: UpdateRowData): Promise<Response> {
     try {
       return await api.post(`${rID}/update`, {
         json: newRow
       }).json()
     } catch (error: unknown) {
-      console.log(getErrorMessage(error))
+      throw (getErrorMessage(error))
     }
   },
-  async removeRow(rID: number) {
+
+  async removeRow(rID: number): Promise<Response> {
     try {
       return await api.delete(`${rID}/delete`).json()
     } catch (error: unknown) {
-      console.log(getErrorMessage(error))
+      throw (getErrorMessage(error))
     }
   }
 }

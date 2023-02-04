@@ -1,5 +1,33 @@
-export interface RowData {
-  child: RowData[],
+
+
+export interface UpdateRowData {
+  equipmentCosts: number
+  estimatedProfit: number
+  machineOperatorSalary: number
+  mainCosts: number
+  materials: number
+  mimExploitation: number
+  overheads: number
+  rowName: string
+  salary: number
+  supportCosts: number
+}
+
+export interface NewRowData {
+  equipmentCosts: number
+  estimatedProfit: number
+  machineOperatorSalary: number
+  mainCosts: number
+  materials: number
+  mimExploitation: number
+  overheads: number
+  parentId: number | null
+  rowName: string
+  salary: number
+  supportCosts: number
+}
+
+export interface RowDataResponse {
   equipmentCosts: number
   estimatedProfit: number
   id: number
@@ -14,15 +42,10 @@ export interface RowData {
   total: number
 }
 
-export interface UpdateRowData {
-  equipmentCosts: number
-  estimatedProfit: number
-  machineOperatorSalary: number
-  mainCosts: number
-  materials: number
-  mimExploitation: number
-  overheads: number
-  rowName: string
-  salary: number
-  supportCosts: number
+export interface RowData extends RowDataResponse {
+  child: RowData[],
+}
+export interface Response {
+  "changed": RowDataResponse[],
+  "current": RowDataResponse
 }

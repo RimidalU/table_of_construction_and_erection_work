@@ -3,7 +3,7 @@ import { RowData } from '../interfaces/types'
 export const recursiveMap = (
   oldArray: RowData[],
   id: number,
-  updateRowData: RowData,
+  updateRowData: Partial<RowData>,
   newArray: RowData[] = [],
 ): RowData[] => {
   if (oldArray.length <= 0) {
@@ -13,7 +13,7 @@ export const recursiveMap = (
     if (item.child) {
       item = { ...item, child: recursiveMap(item.child, id, updateRowData) }
     }
-    const interimArray = [...newArray, item.id === id ? updateRowData : item]
+    const interimArray = [...newArray, item.id === id ? item = { ...item,  ...updateRowData } : item]
     return recursiveMap(theRest, id, updateRowData, interimArray)
   }
 }

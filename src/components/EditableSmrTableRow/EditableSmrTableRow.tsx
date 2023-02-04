@@ -1,15 +1,14 @@
 import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { rowAPI } from '../../api/instance'
 import { initialRowState } from '../../data/initialRowState'
-import { newRowBlank } from '../../data/mockData'
-import { RowData } from '../../interfaces/types'
+import { NewRowData, RowData } from '../../interfaces/types'
 import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
 
 interface rowProps {
 	row: RowData
 	level: number
 	removeRow: (id: number) => void
-	addRow: (id: number, newRow: typeof newRowBlank) => void
+	addRow: (newRow: NewRowData) => void
 	updateRow: (newRow: RowData) => void
 	setEditContactId: (id: null) => void
 }
