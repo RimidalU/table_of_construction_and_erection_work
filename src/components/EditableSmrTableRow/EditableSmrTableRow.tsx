@@ -51,7 +51,7 @@ export default function EditableSmrTableRow({
 
 	return (
 		<tr className='editableSmrTableRow' onDoubleClick={() => updateRow(row)}>
-			<td>
+			<td className='editableButtonsSet'>
 				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} level={level} />
 			</td>
 			<td>
