@@ -8,9 +8,10 @@ interface RowsProps {
 	removeRow: (id: number) => void
 	addRow: (newRow: NewRowData) => void
 	updateRow: (newRow: RowData) => void
+	disabledButtons: boolean
 }
 
-export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsProps) {
+export default function SmrTable({ rows, removeRow, addRow, updateRow, disabledButtons }: RowsProps) {
 	const [editContactId, setEditContactId] = useState<number | null>(null)
 
 	let markup: JSX.Element[] = []
@@ -27,7 +28,6 @@ export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsPro
 		})
 		return markup
 	}
-
 	const getRow = (row: RowData, level: number): JSX.Element => {
 		return (
 			<React.Fragment key={row.id}>
@@ -38,6 +38,7 @@ export default function SmrTable({ rows, removeRow, addRow, updateRow }: RowsPro
 						addRow={addRow}
 						editRow={editRow}
 						level={level}
+						disabledButtons={disabledButtons}
 					/>
 				) : (
 					<EditableSmrTableRow

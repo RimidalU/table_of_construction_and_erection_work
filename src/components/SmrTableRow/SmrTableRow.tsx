@@ -8,9 +8,10 @@ interface rowProps {
 	removeRow: (id: number) => void
 	addRow: (newRow: NewRowData) => void
 	editRow: (id: number) => void
+	disabledButtons: boolean
 }
 
-export default function SmrTableRow({ row, removeRow, addRow, editRow, level }: rowProps) {
+export default function SmrTableRow({ row, removeRow, addRow, editRow, level, disabledButtons }: rowProps) {
 	const {
 		equipmentCosts,
 		estimatedProfit,
@@ -28,10 +29,10 @@ export default function SmrTableRow({ row, removeRow, addRow, editRow, level }: 
 
 	return (
 		<tr className='smrTableRow' onDoubleClick={() => editRow(id)}>
-			<td>
+			<td className={disabledButtons ? 'editableButtonsSet' : ''}>
 				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} level={level} />
 			</td>
-			<td>{rowName}</td>
+			<td>{rowName + id}</td>
 			<td>{salary}</td>
 			<td>{equipmentCosts}</td>
 			<td>{supportCosts}</td>
