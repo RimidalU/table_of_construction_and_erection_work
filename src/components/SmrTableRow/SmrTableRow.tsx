@@ -32,7 +32,7 @@ export default function SmrTableRow({ row, removeRow, addRow, editRow, level, di
 			<td className={disabledButtons ? 'editableButtonsSet' : ''}>
 				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} level={level} />
 			</td>
-			<td>{rowName}</td>
+			<td>{rowName + id}</td>
 			<td>{salary}</td>
 			<td>{equipmentCosts}</td>
 			<td>{supportCosts}</td>

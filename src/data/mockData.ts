@@ -1,141 +1,98 @@
-export const mockData = [
+export interface MockData {
+  child: number[],
+  equipmentCosts: number
+  estimatedProfit: number
+  id: number
+  machineOperatorSalary: number
+  mainCosts: number
+  materials: number
+  mimExploitation: number
+  overheads: number
+  rowName: string
+  salary: number
+  supportCosts: number
+  total: number
+}
+
+export const mockData: MockData[] = [
   {
-    "id": 43433,
-    "rowName": "rowNamefgrowNamefgrowNamefg",
-    "total": 2,
-    "salary": 225360,
-    "mimExploitation": 240,
-    "machineOperatorSalary": 24261424,
-    "materials": 24225384,
-    "mainCosts": 26181384,
-    "supportCosts": 2174240,
-    "equipmentCosts": 174560,
-    "overheads": 22520,
-    "estimatedProfit": 26138560,
     "child": [
-      {
-        "id": 43455,
-        "rowName": "rowNamefg",
-        "total": 0,
-        "salary": 56340,
-        "mimExploitation": 60,
-        "machineOperatorSalary": 6065356,
-        "materials": 6056346,
-        "mainCosts": 6545346,
-        "supportCosts": 543560,
-        "equipmentCosts": 43640,
-        "overheads": 5630,
-        "estimatedProfit": 6534640,
-        "child": []
-      },
-      {
-        "id": 43454,
-        "rowName": "rowNameStringdsfsdgdhdfg",
-        "total": 1,
-        "salary": 112680,
-        "mimExploitation": 120,
-        "machineOperatorSalary": 12130712,
-        "materials": 12112692,
-        "mainCosts": 13090692,
-        "supportCosts": 1087120,
-        "equipmentCosts": 87280,
-        "overheads": 11260,
-        "estimatedProfit": 13069280,
-        "child": [
-          {
-            "id": 43457,
-            "rowName": "rowNagfgfsgfdsgmefg",
-            "total": 0,
-            "salary": 56340,
-            "mimExploitation": 60,
-            "machineOperatorSalary": 6065356,
-            "materials": 6056346,
-            "mainCosts": 6545346,
-            "supportCosts": 543560,
-            "equipmentCosts": 43640,
-            "overheads": 5630,
-            "estimatedProfit": 6534640,
-            "child": []
-          }
-        ]
-      }
-    ]
+    ],
+    "equipmentCosts": 1750,
+    "estimatedProfit": 1209122.5,
+    "id": 1,
+    "machineOperatorSalary": 0,
+    "mainCosts": 0,
+    "materials": 0,
+    "mimExploitation": 0,
+    "overheads": 0,
+    "rowName": "Южная строительная площадка",
+    "salary": 20348,
+    "supportCosts": 108.07,
+    "total": 0
   },
   {
-    "id": 43434,
-    "rowName": "rowNamefgrowNamef",
-    "total": 3,
-    "salary": 281700,
-    "mimExploitation": 300,
-    "machineOperatorSalary": 30326780,
-    "materials": 30281730,
-    "mainCosts": 32726730,
-    "supportCosts": 2717800,
-    "equipmentCosts": 218200,
-    "overheads": 28150,
-    "estimatedProfit": 32673200,
     "child": [
-      {
-        "id": 43453,
-        "rowName": "rowNameStringdsfsdgdhdfg",
-        "total": 1,
-        "salary": 112680,
-        "mimExploitation": 120,
-        "machineOperatorSalary": 12130712,
-        "materials": 12112692,
-        "mainCosts": 13090692,
-        "supportCosts": 1087120,
-        "equipmentCosts": 87280,
-        "overheads": 11260,
-        "estimatedProfit": 13069280,
-        "child": [
-          {
-            "id": 43456,
-            "rowName": "rowNamefg",
-            "total": 0,
-            "salary": 56340,
-            "mimExploitation": 60,
-            "machineOperatorSalary": 6065356,
-            "materials": 6056346,
-            "mainCosts": 6545346,
-            "supportCosts": 543560,
-            "equipmentCosts": 43640,
-            "overheads": 5630,
-            "estimatedProfit": 6534640,
-            "child": []
-          }
-        ]
-      },
-      {
-        "id": 43452,
-        "rowName": "rowNameStringdsfsdgdhdfg",
-        "total": 0,
-        "salary": 56340,
-        "mimExploitation": 60,
-        "machineOperatorSalary": 6065356,
-        "materials": 6056346,
-        "mainCosts": 6545346,
-        "supportCosts": 543560,
-        "equipmentCosts": 43640,
-        "overheads": 5630,
-        "estimatedProfit": 6534640,
-        "child": []
-      },
-      {
-        "id": 43451,
-        "rowName": "rowNameString",
-        "total": 0,
-        "salary": 56340,
-        "mimExploitation": 60,
-        "machineOperatorSalary": 6065356,
-        "materials": 6056346,
-        "mainCosts": 6545346,
-        "supportCosts": 543560,
-        "equipmentCosts": 43640,
-        "overheads": 5630,
-        "estimatedProfit": 6534640,
-        "child": []
-      }
-    ]
+      1
+    ],
+    "equipmentCosts": 10,
+    "estimatedProfit": 10,
+    "id": 0,
+    "machineOperatorSalary": 10,
+    "mainCosts": 10,
+    "materials": 10,
+    "mimExploitation": 10,
+    "overheads": 10,
+    "rowName": "Фундаментальные работы",
+    "salary": 10,
+    "supportCosts": 10,
+    "total": 10
+  },
+  {
+    "child": [
+      1
+    ],
+    "equipmentCosts": 20,
+    "estimatedProfit": 20,
+    "id": 2,
+    "machineOperatorSalary": 20,
+    "mainCosts": 20,
+    "materials": 20,
+    "mimExploitation": 20,
+    "overheads": 20,
+    "rowName": "string 20",
+    "salary": 20,
+    "supportCosts": 20,
+    "total": 20
   }
 ]
+
+export const newRowBlank = {
+  "equipmentCosts": 0,
+  "estimatedProfit": 0,
+  "machineOperatorSalary": 0,
+  "mainCosts": 0,
+  "materials": 0,
+  "mimExploitation": 0,
+  "overheads": 0,
+  "parentId": 0 || null,
+  "rowName": "",
+  "salary": 0,
+  "supportCosts": 0,
+}
+
+export const newMockRow =  {
+  "child": [0],
+  "equipmentCosts": 0,
+  "estimatedProfit": 0,
+  "id": 0,
+  "machineOperatorSalary": 0,
+  "mainCosts": 0,
+  "materials": 0,
+  "mimExploitation": 0,
+  "overheads": 0,
+  "rowName": "",
+  "salary": 0,
+  "supportCosts": 0,
+  "total": 0
+}
