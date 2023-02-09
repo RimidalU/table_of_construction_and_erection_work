@@ -1,74 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { rowAPI } from '../../api/instance'
+import React, { useState } from 'react'
 import SmrTable from '../../components/SmrTable/SmrTable'
 
-import { getUpdateRowData } from '../../helpers/getUpdateRowData'
 import { recursiveFilter } from '../../helpers/recursiveFilter'
 import { recursiveAddRow } from '../../helpers/recursiveAddRow'
-import { NewRowData, RowData, RowDataResponse } from '../../interfaces/types'
+import { NewRowData, RowData } from '../../interfaces/types'
 import { initialRowState } from '../../data/initialRowState'
 import { recursiveMap } from '../../helpers/recursiveMap'
-import { initialNewRowData } from '../../data/initialNewRowData'
+import { mockData } from '../../data/mockData'
 
 export default function SmrPage() {
-	const [rows, setRows] = useState<RowData[]>([])
+	const [rows, setRows] = useState<RowData[]>(mockData)
 	const [disabledButtons, setDisabledButtons] = useState<boolean>(false)
-
-	useEffect(() => {
-		getRows()
-	}, [])
-
-	const getRows = async () => {
-		const newState = await rowAPI.getAll()
-		newState.length === 0 ? addRow(initialNewRowData) : setRows(newState)
-	}
 
 	const removeRow = async (id: number) => {
 		setDisabledButtons(true)
-		const { current, changed } = await rowAPI.removeRow(id)
-		if (current === null) {
-			changed.length && updateState(changed)
-			const newRows = recursiveFilter(rows, id)
-			setRows(newRows)
-		} else {
-			updateState(changed)
-		}
+		const newRows = recursiveFilter(rows, id)
+		setRows(newRows)
 		setDisabledButtons(false)
 	}
 
 	const addRow = async (newRow: NewRowData) => {
 		setDisabledButtons(true)
-		const { current, changed } = await rowAPI.createRow(newRow)
 
-		if (current.id) {
-			changed.length && updateState(changed)
-
-			let rowState = initialRowState
-			rowState.id = current.id
-			const newRows = recursiveAddRow(rows, newRow.parentId, rowState)
-			setRows(newRows)
-		}
+		let rowState = initialRowState
+		rowState.id = new Date().valueOf()
+		const newRows = recursiveAddRow(rows, newRow.parentId, rowState)
+		setRows(newRows)
 		setDisabledButtons(false)
 	}
 
 	const updateRow = async (newRow: RowData) => {
 		setDisabledButtons(true)
-		const { current, changed } = await rowAPI.updateRow(newRow.id, getUpdateRowData(newRow))
-		if (current.id) {
-			changed.length && updateState([...changed, current])
-			const newRows = recursiveMap(rows, newRow.id, newRow)
-			setRows(newRows)
-		}
+		const newRows = recursiveMap(rows, newRow.id, newRow)
+		setRows(newRows)
 		setDisabledButtons(false)
 	}
 
-	const updateState = (changed: RowDataResponse[]) => {
-		changed.length &&
-			changed.forEach((newRow) => {
-				const newRows = recursiveMap(rows, newRow.id, newRow)
-				setRows(newRows)
-			})
-	}
 	return (
 		<article className='smrPage'>
 			<SmrTable
