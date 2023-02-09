@@ -8,6 +8,7 @@ import { recursiveAddRow } from '../../helpers/recursiveAddRow'
 import { NewRowData, RowData, RowDataResponse } from '../../interfaces/types'
 import { initialRowState } from '../../data/initialRowState'
 import { recursiveMap } from '../../helpers/recursiveMap'
+import { initialNewRowData } from '../../data/initialNewRowData'
 
 export default function SmrPage() {
 	const [rows, setRows] = useState<RowData[]>([])
@@ -19,16 +20,20 @@ export default function SmrPage() {
 
 	const getRows = async () => {
 		const newState = await rowAPI.getAll()
-		setRows(newState)
+		newState.length === 0 ? addRow(initialNewRowData) : setRows(newState)
 	}
 
 	const removeRow = async (id: number) => {
+		setDisabledButtons(true)
 		const { current, changed } = await rowAPI.removeRow(id)
-		if (current.id) {
+		if (current === null) {
 			changed.length && updateState(changed)
 			const newRows = recursiveFilter(rows, id)
 			setRows(newRows)
+		} else {
+			updateState(changed)
 		}
+		setDisabledButtons(false)
 	}
 
 	const addRow = async (newRow: NewRowData) => {
@@ -36,15 +41,14 @@ export default function SmrPage() {
 		const { current, changed } = await rowAPI.createRow(newRow)
 
 		if (current.id) {
-			console.log(current.id)
 			changed.length && updateState(changed)
 
-			const rowState = initialRowState
+			let rowState = initialRowState
 			rowState.id = current.id
 			const newRows = recursiveAddRow(rows, newRow.parentId, rowState)
 			setRows(newRows)
-			setDisabledButtons(false)
 		}
+		setDisabledButtons(false)
 	}
 
 	const updateRow = async (newRow: RowData) => {
@@ -55,6 +59,7 @@ export default function SmrPage() {
 			const newRows = recursiveMap(rows, newRow.id, newRow)
 			setRows(newRows)
 		}
+		setDisabledButtons(false)
 	}
 
 	const updateState = (changed: RowDataResponse[]) => {
