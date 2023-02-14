@@ -11,7 +11,14 @@ interface rowProps {
 	disabledButtons: boolean
 }
 
-export default function SmrTableRow({ row, removeRow, addRow, editRow, level, disabledButtons }: rowProps) {
+export default function SmrTableRow({
+	row,
+	removeRow,
+	addRow,
+	editRow,
+	level,
+	disabledButtons,
+}: rowProps) {
 	const {
 		equipmentCosts,
 		estimatedProfit,
@@ -32,7 +39,7 @@ export default function SmrTableRow({ row, removeRow, addRow, editRow, level, di
 			<td className={disabledButtons ? 'editableButtonsSet' : ''}>
 				<LevelButtonsSet id={id} removeRow={removeRow} addRow={addRow} level={level} />
 			</td>
-			<td>{rowName + id}</td>
+			<td>{rowName}</td>
 			<td>{salary}</td>
 			<td>{equipmentCosts}</td>
 			<td>{supportCosts}</td>

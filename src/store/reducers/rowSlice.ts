@@ -1,13 +1,17 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
-import { ApiResponse, RowData, RowState } from '../../interfaces/types'
+import { ApiResponse, ApiResponseWithId, RowData, RowState } from '../../interfaces/types'
 import { mockData } from '../../data/mockData'
 import { createSlice, } from '@reduxjs/toolkit'
+import { recursiveMap } from '../../helpers/recursiveMap'
+import { recursiveFilter } from '../../helpers/recursiveFilter'
+import { recursiveAddRow } from '../../helpers/recursiveAddRow'
 
 
 const initialState: RowState = {
-  rows: mockData,
+  rows: [],
   isLoading: false,
+  isDisabledButtons: false,
   errors: ''
 }
 
@@ -25,20 +29,35 @@ export const rowsSlice = createSlice({
     fetchingRowsError(state, action: PayloadAction<string>) {
       state.isLoading = false
       state.errors = action.payload
-    }
+    },
 
-    // createRow(state, action: PayloadAction<ApiResponse>) {
-    //   state.isLoading = false,
-    //   state.rows = action.payload.current
-    // },
-    // updateRow(state, action: PayloadAction<RowData[]>) {
-    //   state.isLoading = false,
-    //   state.rows = action.payload.current
-    // },
-    // removeRow(state, action: PayloadAction<RowData[]>) {
-    //   state.isLoading = false,
-    //   state.rows = action.payload.current
-    // },
+    updateRow(state, action: PayloadAction<ApiResponse>) {
+      state.isDisabledButtons = true
+      if (action.payload.current.id) {
+        const newRows = recursiveMap(state.rows, action.payload.current.id, action.payload.current)
+        state.rows = newRows
+      }
+      state.isDisabledButtons = false
+    },
+
+    createRow(state, action: PayloadAction<ApiResponseWithId>) {
+      state.isDisabledButtons = true
+      if (action.payload.current.id) {
+        const updateRowData = {...action.payload.current, child:[]}
+        const newRows = recursiveAddRow(state.rows, action.payload.id, updateRowData)
+        state.rows = newRows
+      }
+      state.isDisabledButtons = false
+    },
+
+    removeRow(state, action: PayloadAction<ApiResponseWithId>) {
+      state.isDisabledButtons = true
+      if (action.payload.current === null) {
+        const newRows = recursiveFilter(state.rows, action.payload.id!)
+        state.rows = newRows
+      }
+      state.isDisabledButtons = false
+    }
   }
 })
 
