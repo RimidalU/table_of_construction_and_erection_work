@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react'
+
 import { rowAPI } from '../../api/instance'
 import SmrTable from '../../components/SmrTable/SmrTable'
-
 import { getUpdateRowData } from '../../helpers/getUpdateRowData'
 import { recursiveFilter } from '../../helpers/recursiveFilter'
 import { recursiveAddRow } from '../../helpers/recursiveAddRow'
 import { NewRowData, RowData, RowDataResponse } from '../../interfaces/types'
 import { initialRowState } from '../../data/initialRowState'
 import { recursiveMap } from '../../helpers/recursiveMap'
-import { initialNewRowData } from '../../data/initialNewRowData'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppSelector'
+import { fetchingRows } from '../../store/action-creators/rowActionsCreator'
 
 export default function SmrPage() {
-	const [rows, setRows] = useState<RowData[]>([])
+	// const [rows, setRows] = useState<RowData[]>([])
 	const [disabledButtons, setDisabledButtons] = useState<boolean>(false)
 
-	useEffect(() => {
-		getRows()
-	}, [])
+	const { rows, isLoading } = useAppSelector((state) => state.rowReducer) //TODO:add loader and error popup
+	const dispatch = useAppDispatch()
 
-	const getRows = async () => {
-		const newState = await rowAPI.getAll()
-		newState.length === 0 ? addRow(initialNewRowData) : setRows(newState)
-	}
+	useEffect(() => {
+		dispatch(fetchingRows())
+	}, [])
 
 	const removeRow = async (id: number) => {
 		setDisabledButtons(true)
@@ -71,13 +70,17 @@ export default function SmrPage() {
 	}
 	return (
 		<article className='smrPage'>
-			<SmrTable
-				rows={rows}
-				removeRow={removeRow}
-				addRow={addRow}
-				updateRow={updateRow}
-				disabledButtons={disabledButtons}
-			/>
+			{isLoading ? (
+				<h2>isLoading</h2>
+			) : (
+				<SmrTable
+					rows={rows}
+					removeRow={removeRow}
+					addRow={addRow}
+					updateRow={updateRow}
+					disabledButtons={disabledButtons}
+				/>
+			)}
 		</article>
 	)
 }

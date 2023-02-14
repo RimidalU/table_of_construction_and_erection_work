@@ -1,3 +1,4 @@
+import { RowsActionsTypes } from '../store/actions'
 
 
 export interface UpdateRowData {
@@ -45,7 +46,18 @@ export interface RowDataResponse {
 export interface RowData extends RowDataResponse {
   child: RowData[],
 }
-export interface Response {
+export interface ApiResponse {
   "changed": RowDataResponse[],
   "current": RowDataResponse
+}
+
+export interface RowState {
+  rows: RowData[],
+  isLoading: boolean,
+  errors: string
+}
+
+export interface RowAction {
+  type: RowsActionsTypes
+  payload: RowData[]
 }

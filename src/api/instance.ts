@@ -1,19 +1,22 @@
 import ky from 'ky'
+
 import { getErrorMessage } from '../helpers/getErrorMessage'
-import { NewRowData, Response, RowData, UpdateRowData } from '../interfaces/types'
+import { NewRowData, RowData, UpdateRowData } from '../interfaces/types'
 
 const api = ky.create({
-  prefixUrl: import.meta.env.VITE_BASE_URL
+  prefixUrl: import.meta.env.VITE_BASE_URL,
+  // hooks:{
+  //   beforeRequest: [request => {
+  //     console.log(request)}],
+  //   afterResponse:[(_request, _options, response) => {
+  //     console.log(response)}]
+  // }
 })
 
 export const rowAPI = {
 
   async getAll(): Promise<RowData[]> {
-    try {
-      return await api.get('list').json()
-    } catch (error: unknown) {
-      throw (getErrorMessage(error))
-    }
+    return await api.get('list').json()
   },
 
   async createRow(newRow: NewRowData): Promise<Response> {
