@@ -1,8 +1,9 @@
 import React, { KeyboardEvent, useEffect, useState } from 'react'
-import { rowAPI } from '../../api/instance'
 import { initialRowState } from '../../data/initialRowState'
 import { NewRowData, RowData } from '../../interfaces/types'
 import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
+import { useAppDispatch } from '../../hooks/useAppSelector'
+import { setEditableContactId } from '../../store/action-creators/rowActionsCreator'
 
 interface rowProps {
 	row: RowData
@@ -10,7 +11,6 @@ interface rowProps {
 	removeRow: (id: number) => void
 	addRow: (newRow: NewRowData) => void
 	updateRow: (newRow: RowData) => void
-	setEditContactId: (id: null) => void
 }
 
 export default function EditableSmrTableRow({
@@ -19,7 +19,6 @@ export default function EditableSmrTableRow({
 	removeRow,
 	addRow,
 	updateRow,
-	setEditContactId,
 }: rowProps) {
 	const [rowValue, setRowValue] = useState<RowData>(initialRowState)
 
@@ -27,10 +26,12 @@ export default function EditableSmrTableRow({
 		setRowValue(row)
 	}, [])
 
+	const dispatch = useAppDispatch()
+
 	const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Enter') {
 			updateRow(rowValue)
-			setEditContactId(null)
+			dispatch(setEditableContactId(null))
 		}
 	}
 
@@ -49,6 +50,8 @@ export default function EditableSmrTableRow({
 		total,
 	} = rowValue
 
+	const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => event.target.select()
+
 	return (
 		<tr className='editableSmrTableRow' onDoubleClick={() => updateRow(row)}>
 			<td className='editableButtonsSet'>
@@ -57,6 +60,8 @@ export default function EditableSmrTableRow({
 			<td>
 				<input
 					type='text'
+					onFocus={(event) => handleFocus(event)}
+					autoFocus
 					value={rowName}
 					onChange={(e) => setRowValue((prev) => ({ ...prev, rowName: e.target.value }))}
 					onKeyDown={handleKeyDown}
@@ -65,6 +70,7 @@ export default function EditableSmrTableRow({
 			<td>
 				<input
 					type='number'
+					onFocus={(event) => handleFocus(event)}
 					value={salary}
 					onChange={(e) => setRowValue((prev) => ({ ...prev, salary: +e.target.value }))}
 					onKeyDown={handleKeyDown}
@@ -73,6 +79,7 @@ export default function EditableSmrTableRow({
 			<td>
 				<input
 					type='number'
+					onFocus={(event) => handleFocus(event)}
 					value={equipmentCosts}
 					onChange={(e) => setRowValue((prev) => ({ ...prev, equipmentCosts: +e.target.value }))}
 					onKeyDown={handleKeyDown}
@@ -81,6 +88,7 @@ export default function EditableSmrTableRow({
 			<td>
 				<input
 					type='number'
+					onFocus={(event) => handleFocus(event)}
 					value={supportCosts}
 					onChange={(e) => setRowValue((prev) => ({ ...prev, supportCosts: +e.target.value }))}
 					onKeyDown={handleKeyDown}
@@ -89,6 +97,7 @@ export default function EditableSmrTableRow({
 			<td>
 				<input
 					type='number'
+					onFocus={(event) => handleFocus(event)}
 					value={estimatedProfit}
 					onChange={(e) => setRowValue((prev) => ({ ...prev, estimatedProfit: +e.target.value }))}
 					onKeyDown={handleKeyDown}

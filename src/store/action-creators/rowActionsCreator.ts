@@ -1,6 +1,6 @@
 import { rowAPI } from '../../api/instance'
 import { getErrorMessage } from '../../helpers/getErrorMessage'
-import { NewRowData, RowData, UpdateRowData } from '../../interfaces/types'
+import { NewRowData, UpdateRowData } from '../../interfaces/types'
 import { rowsSlice } from '../reducers/rowSlice'
 import { AppDispatch } from './../index'
 
@@ -39,11 +39,15 @@ export const removedRow = (rID: number) => async (dispatch: AppDispatch) => {
 export const createdRow = (newRow: NewRowData) => async (dispatch: AppDispatch) => {
   try {
     const responseData = await rowAPI.createRow(newRow)
-    const responseDataWithId = { ...responseData, id: newRow.parentId! }
+    const responseDataWithId = { ...responseData, id: newRow.parentId }
 
     dispatch(rowsSlice.actions.createRow(responseDataWithId))
   } catch (error: unknown) {
     const errorMessageString = getErrorMessage(error)
     dispatch(rowsSlice.actions.fetchingRowsError(errorMessageString))
   }
+}
+
+export const setEditableContactId = (id: number | null) => (dispatch: AppDispatch) => {
+  dispatch(rowsSlice.actions.setEditableContactId(id))
 }

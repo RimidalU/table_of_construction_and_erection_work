@@ -1,6 +1,3 @@
-// import { RowsActionsTypes } from '../store/actions'
-
-
 export interface UpdateRowData {
   equipmentCosts: number
   estimatedProfit: number
@@ -58,5 +55,6 @@ export interface RowState {
   rows: RowData[],
   isLoading: boolean,
   isDisabledButtons: boolean,
-  errors: string
+  errors: string,
+  editableContactId: number | null
 }

@@ -31,13 +31,6 @@ export default function SmrPage() {
 		await dispatch(updatedRow(newRow.id, getUpdateRowData(newRow)))
 	}
 
-	// const updateState = (changed: RowDataResponse[]) => {
-	// 	changed.length &&
-	// 		changed.forEach((newRow) => {
-	// 			const newRows = recursiveMap(rows, newRow.id, newRow)
-	// 			setRows(newRows)
-	// 		})
-	// }
 	return (
 		<article className='smrPage'>
 			{isLoading ? (

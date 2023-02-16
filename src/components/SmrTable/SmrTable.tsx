@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { NewRowData, RowData } from '../../interfaces/types'
 import EditableSmrTableRow from '../EditableSmrTableRow/EditableSmrTableRow'
 import SmrTableRow from '../SmrTableRow/SmrTableRow'
+import { useAppDispatch } from '../../hooks/useAppSelector'
+import { setEditableContactId } from '../../store/action-creators/rowActionsCreator'
 
 interface RowsProps {
 	rows: RowData[]
@@ -11,10 +14,16 @@ interface RowsProps {
 	disabledButtons: boolean
 }
 
-export default function SmrTable({ rows, removeRow, addRow, updateRow, disabledButtons }: RowsProps) {
-	const [editContactId, setEditContactId] = useState<number | null>(null)
-
+export default function SmrTable({
+	rows,
+	removeRow,
+	addRow,
+	updateRow,
+	disabledButtons,
+}: RowsProps) {
+	const { editableContactId } = useAppSelector((state) => state.rowReducer)
 	let markup: JSX.Element[] = []
+	const dispatch = useAppDispatch()
 
 	const parsRows = (rows: RowData[], level: number = -1) => {
 		level += 1
@@ -28,10 +37,11 @@ export default function SmrTable({ rows, removeRow, addRow, updateRow, disabledB
 		})
 		return markup
 	}
+
 	const getRow = (row: RowData, level: number): JSX.Element => {
 		return (
 			<React.Fragment key={row.id}>
-				{editContactId !== row.id ? (
+				{editableContactId !== row.id ? (
 					<SmrTableRow
 						row={row}
 						removeRow={removeRow}
@@ -46,7 +56,6 @@ export default function SmrTable({ rows, removeRow, addRow, updateRow, disabledB
 						removeRow={removeRow}
 						addRow={addRow}
 						updateRow={updateRow}
-						setEditContactId={setEditContactId}
 						level={level}
 					/>
 				)}
@@ -55,7 +64,7 @@ export default function SmrTable({ rows, removeRow, addRow, updateRow, disabledB
 	}
 
 	const editRow = (id: number) => {
-		setEditContactId(id)
+		dispatch(setEditableContactId(id))
 		updateRow(rows[0])
 	}
 

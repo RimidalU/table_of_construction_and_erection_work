@@ -1,7 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
 import { ApiResponse, ApiResponseWithId, RowData, RowState } from '../../interfaces/types'
-import { mockData } from '../../data/mockData'
 import { createSlice, } from '@reduxjs/toolkit'
 import { recursiveMap } from '../../helpers/recursiveMap'
 import { recursiveFilter } from '../../helpers/recursiveFilter'
@@ -12,7 +11,8 @@ const initialState: RowState = {
   rows: [],
   isLoading: false,
   isDisabledButtons: false,
-  errors: ''
+  errors: '',
+  editableContactId: null
 }
 
 export const rowsSlice = createSlice({
@@ -23,8 +23,8 @@ export const rowsSlice = createSlice({
       state.isLoading = true
     },
     fetchingRowsSuccess(state, action: PayloadAction<RowData[]>) {
-      state.isLoading = false,
-        state.rows = action.payload
+      state.isLoading = false
+      state.rows = action.payload
     },
     fetchingRowsError(state, action: PayloadAction<string>) {
       state.isLoading = false
@@ -43,9 +43,10 @@ export const rowsSlice = createSlice({
     createRow(state, action: PayloadAction<ApiResponseWithId>) {
       state.isDisabledButtons = true
       if (action.payload.current.id) {
-        const updateRowData = {...action.payload.current, child:[]}
+        const updateRowData = { ...action.payload.current, child: [] }
         const newRows = recursiveAddRow(state.rows, action.payload.id, updateRowData)
         state.rows = newRows
+        state.editableContactId = action.payload.current.id
       }
       state.isDisabledButtons = false
     },
@@ -57,6 +58,10 @@ export const rowsSlice = createSlice({
         state.rows = newRows
       }
       state.isDisabledButtons = false
+    },
+
+    setEditableContactId(state, action: PayloadAction<number | null>) {
+      state.editableContactId = action.payload
     }
   }
 })
