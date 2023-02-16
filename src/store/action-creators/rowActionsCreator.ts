@@ -1,3 +1,4 @@
+import { initialNewRowData } from './../../data/initialNewRowData'
 import { rowAPI } from '../../api/instance'
 import { getErrorMessage } from '../../helpers/getErrorMessage'
 import { NewRowData, UpdateRowData } from '../../interfaces/types'
@@ -8,7 +9,12 @@ export const fetchingRows = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(rowsSlice.actions.fetchingRows())
     const responseData = await rowAPI.getAll()
-    dispatch(rowsSlice.actions.fetchingRowsSuccess(responseData))
+
+    if (responseData.length === 0) {
+      await dispatch(createdRow(initialNewRowData))
+    } else {
+      dispatch(rowsSlice.actions.fetchingRowsSuccess(responseData))
+    }
   } catch (error: unknown) {
     const errorMessageString = getErrorMessage(error)
     dispatch(rowsSlice.actions.fetchingRowsError(errorMessageString))
