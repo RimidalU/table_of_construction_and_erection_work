@@ -34,7 +34,7 @@ export default function SmrPage() {
 	return (
 		<article className='smrPage'>
 			{isLoading ? (
-				<h2>isLoading</h2>
+				<div className='spinier'></div>
 			) : (
 				<SmrTable
 					rows={rows}
