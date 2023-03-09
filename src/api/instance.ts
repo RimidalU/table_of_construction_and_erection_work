@@ -19,7 +19,7 @@ export const rowAPI = {
     return await api.get('list').json()
   },
 
-  async updateRow(rID: number, newRow: UpdateRowData): Promise<ApiResponse> {
+  async updateRow(rID: number | string, newRow: UpdateRowData): Promise<ApiResponse> {
     return await api.post(`${rID}/update`, { json: newRow }).json()
   },
 
@@ -27,7 +27,7 @@ export const rowAPI = {
     return await api.post(`create`, { json: newRow }).json()
   },
 
-  async removeRow(rID: number): Promise<ApiResponse> {
-    return await api.delete(`${rID}/delete`, { json: rID }).json()
+  async removeRow(rID: number | string): Promise<ApiResponse> {
+    return await api.delete(`${rID}/delete`).json()
   }
 }

@@ -2,7 +2,7 @@ import { RowData } from '../interfaces/types'
 
 export const recursiveMap = (
   oldArray: RowData[],
-  id: number,
+  id: number | string,
   updateRowData: Partial<RowData>,
   newArray: RowData[] = [],
 ): RowData[] => {

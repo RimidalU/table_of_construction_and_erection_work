@@ -19,7 +19,7 @@ export interface NewRowData {
   materials: number
   mimExploitation: number
   overheads: number
-  parentId: number | null
+  parentId: number | null | string
   rowName: string
   salary: number
   supportCosts: number
@@ -28,7 +28,7 @@ export interface NewRowData {
 export interface RowDataResponse {
   equipmentCosts: number
   estimatedProfit: number
-  id: number
+  id: number | string
   machineOperatorSalary: number
   mainCosts: number
   materials: number
@@ -49,12 +49,12 @@ export interface ApiResponse {
 }
 
 export interface ApiResponseWithId extends ApiResponse {
-  id: number | null
+  id: number | null | string
 }
 export interface RowState {
   rows: RowData[],
   isLoading: boolean,
   isDisabledButtons: boolean,
   errors: string,
-  editableContactId: number | null
+  editableContactId: number | null | string
 }

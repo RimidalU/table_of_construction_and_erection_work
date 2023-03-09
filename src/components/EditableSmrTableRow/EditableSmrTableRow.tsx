@@ -8,7 +8,7 @@ import { setEditableContactId } from '../../store/action-creators/rowActionsCrea
 interface rowProps {
 	row: RowData
 	level: number
-	removeRow: (id: number) => void
+	removeRow: (id: number | string) => void
 	addRow: (newRow: NewRowData) => void
 	updateRow: (newRow: RowData) => void
 }

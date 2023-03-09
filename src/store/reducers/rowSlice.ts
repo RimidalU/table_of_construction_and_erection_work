@@ -42,13 +42,12 @@ export const rowsSlice = createSlice({
 
     createRow(state, action: PayloadAction<ApiResponseWithId>) {
       state.isDisabledButtons = true
+
       if (action.payload.current.id) {
-        console.log(action)
-
         const updateRowData = { ...action.payload.current, child: [] }
-
-        let newRows: RowData[]
+        let newRows: RowData[] = []
         if (action.payload.id) {
+
           newRows = recursiveAddRow(state.rows, action.payload.id, updateRowData)
         } else {
           newRows = [updateRowData]
@@ -69,7 +68,7 @@ export const rowsSlice = createSlice({
       state.isDisabledButtons = false
     },
 
-    setEditableContactId(state, action: PayloadAction<number | null>) {
+    setEditableContactId(state, action: PayloadAction<number | null | string>) {
       state.editableContactId = action.payload
     }
   }

@@ -19,7 +19,7 @@ export default function SmrPage() {
 		dispatch(fetchingRows())
 	}, [])
 
-	const removeRow = async (id: number) => {
+	const removeRow = async (id: number | string) => {
 		await dispatch(removedRow(id))
 	}
 

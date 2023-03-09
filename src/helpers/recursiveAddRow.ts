@@ -2,7 +2,7 @@ import { RowData } from '../interfaces/types'
 
 export const recursiveAddRow = (
   oldArray: RowData[],
-  parentId: number | null,
+  parentId: number | null | string,
   updateRowData: RowData,
   newArray: RowData[] = [],
 ): RowData[] => {

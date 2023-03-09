@@ -21,7 +21,7 @@ export const fetchingRows = () => async (dispatch: AppDispatch) => {
   }
 }
 
-export const updatedRow = (rID: number, newRow: UpdateRowData) => async (dispatch: AppDispatch) => {
+export const updatedRow = (rID: number | string, newRow: UpdateRowData) => async (dispatch: AppDispatch) => {
   try {
     const responseData = await rowAPI.updateRow(rID, newRow)
     dispatch(rowsSlice.actions.updateRow(responseData))
@@ -31,7 +31,7 @@ export const updatedRow = (rID: number, newRow: UpdateRowData) => async (dispatc
   }
 }
 
-export const removedRow = (rID: number) => async (dispatch: AppDispatch) => {
+export const removedRow = (rID: number | string) => async (dispatch: AppDispatch) => {
   try {
     const responseData = await rowAPI.removeRow(rID)
     const responseDataWithId = { ...responseData, id: rID }
@@ -54,6 +54,6 @@ export const createdRow = (newRow: NewRowData) => async (dispatch: AppDispatch) 
   }
 }
 
-export const setEditableContactId = (id: number | null) => (dispatch: AppDispatch) => {
+export const setEditableContactId = (id: number | null | string) => (dispatch: AppDispatch) => {
   dispatch(rowsSlice.actions.setEditableContactId(id))
 }

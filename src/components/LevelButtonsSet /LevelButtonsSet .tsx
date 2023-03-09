@@ -6,9 +6,9 @@ import { createNewRowBlank } from '../../helpers/createNewRowBlank'
 import { NewRowData } from '../../interfaces/types'
 
 interface ButtonSetProps {
-	id: number
+	id: number | string
 	level: number
-	removeRow: (id: number) => void
+	removeRow: (id: number | string) => void
 	addRow: (newRow: NewRowData) => void
 }
 
@@ -16,7 +16,7 @@ export default function LevelButtonsSet({ id, removeRow, addRow, level }: Button
 	const [isShown, setIsShown] = useState(false)
 	const shiftSet = level * 20
 
-	const handleCreateNewRowBlank = (id: number) => {
+	const handleCreateNewRowBlank = (id: number | string) => {
 		addRow(createNewRowBlank(id))
 	}
 

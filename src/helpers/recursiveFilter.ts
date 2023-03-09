@@ -1,6 +1,6 @@
 import { RowData } from '../interfaces/types'
 
-export const recursiveFilter = (arr: RowData[], id: number): RowData[] => {
+export const recursiveFilter = (arr: RowData[], id: number | string): RowData[] => {
   return arr.filter((row) => {
     const keep = row['id'] != id
     if (keep && row['child']) {

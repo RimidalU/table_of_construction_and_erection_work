@@ -5,9 +5,9 @@ import LevelButtonsSet from '../LevelButtonsSet /LevelButtonsSet '
 interface rowProps {
 	row: RowData
 	level: number
-	removeRow: (id: number) => void
+	removeRow: (id: number | string) => void
 	addRow: (newRow: NewRowData) => void
-	editRow: (id: number) => void
+	editRow: (id: number | string) => void
 	disabledButtons: boolean
 }
 

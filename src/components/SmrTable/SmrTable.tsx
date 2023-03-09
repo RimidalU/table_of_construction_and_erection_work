@@ -8,7 +8,7 @@ import { setEditableContactId } from '../../store/action-creators/rowActionsCrea
 
 interface RowsProps {
 	rows: RowData[]
-	removeRow: (id: number) => void
+	removeRow: (id: number | string) => void
 	addRow: (newRow: NewRowData) => void
 	updateRow: (newRow: RowData) => void
 	disabledButtons: boolean
@@ -63,7 +63,7 @@ export default function SmrTable({
 		)
 	}
 
-	const editRow = (id: number) => {
+	const editRow = (id: number | string) => {
 		dispatch(setEditableContactId(id))
 		updateRow(rows[0])
 	}
