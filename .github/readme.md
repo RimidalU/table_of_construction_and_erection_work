@@ -61,7 +61,7 @@ To do:
 
 ## License
 
-This project is open source and available under the [MIT]().
+This project is open source and available under the [MIT](../LICENSE).
 
 ## Contact
 Created by [@RimidalU](https://www.linkedin.com/in/uladzimir-stankevich/) - feel free to contact me!
